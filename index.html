@@ -6,7 +6,8 @@
     <title>Transfonter demo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
+   <script src="assets/javascript/game.js"></script>
+   <style>
         @font-face {
             font-family: 'Game of Thrones';
             src: url('GameofThrones.eot');
@@ -16,12 +17,14 @@
             font-weight: normal;
             font-style: normal;
         }
-        .container,
+
         h1,
         h2,
-        h3 {
-            color: lightgray;
+        h3,
+        h4 {
+            color: white;
             text-align: center;
+            font-family: 'Game of Thrones';
         }
 
         body {
@@ -30,7 +33,6 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center; 
-            font-family: 'Game of Thrones';
         }
 
         header {
@@ -39,26 +41,41 @@
 
         .jumbotron {
             background: none;
-            color: lightgray;
+            color: white;
+        }
+
+        .container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 30px;
         }
     </style>
 </head>
-
-<body>
+<body onload="gameStart()">
     <header>
         <div class="container">
             <h1>Game of Guess</h1>
             <h2>All Men Must Guess</h2>
+
         </div>
     </header>
     <div class="container">
         <div class="jumbotron">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
-                    <h3>Valar morghulis</h3>
+                    <div class="container">
+                        <h4>Valar morghulis</h4>
+                    </div>
+                    <div class="container" id="wins">wins</div>
+                    <div class="container" id="wordBlank">wordBlank</div>
+                    <div class="container" id="guessNum">Guess Num Remains</div>
+                    <div class="container" id="wrongChar"></div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Valar dohaeris</h3>
+                    <div class="container">
+                        <h4>Valar dohaeris</h4>
+                    </div>
                 </div>
             </div>
         </div>
