@@ -1,18 +1,21 @@
 // global variables
-let wordGuess = ["Lannister", "Stark", "Tangaryen", "Baratheon", "Cercei", "Arya", "Jon", "Robb", "Daenerys", "Sansa"];    // Guessing words
-let imageLoc = "../images/";                                                                                               // image location
-let wordImage = [null, null, null, null, null, null, null, null, null, null];                                              // Image to show after a word is correctly guessed
+let wordGuess = ["Lannister", "Stark", "Targaryen", "Baratheon", "Cersei", "Arya", "Jon", "Tyrion", "Daenerys", "Sansa"];    // Guessing words
+let imageLoc = "assets/images/";                                                                                               // image location
+let wordImage = ["House_Lannister.svg", "House_Stark.svg", "House_Targaryen.svg", "House_Baratheon.svg", 
+                 "Cersei.jpg", "Arya.jpg", "Jon.png", "Tyrion.jpg", "Danny.jpg", "Sansa.jpg"];                                              // Image to show after a word is correctly guessed
 let wordMusic = [null, null, null, null, null, null, null, null, null, null];                                              // Music to play after a word is correctly guessed
 let winNum = 0;
 let guessNum = 12;
-let wrongLetterMark = new Array(26).fill(0);
-let wrongLetterStr = ""
+let wrongLetterStr = "";
 
 // Game Object
 let currentGame = Object();
 
 // word letter hash table
 let wordTable = Object();
+
+// wrong letter hash table
+let wrongTable = Object();
 
 // Functions
 // initialize the game
@@ -23,6 +26,7 @@ function gameStart() {
     wrongLetterMark = new Array(26).fill(0);
     currentGame = Object();
     wordTable = Object();
+    wrongTable = Object();
 
     let wordIdx = Math.floor(Math.random() * wordGuess.length);     // Randomly pick a word
 
@@ -50,16 +54,12 @@ function gameStart() {
 
 // Reboot the game for winner
 function gameRebootLose() {
-    console.log(currentGame);
-    console.log(wordTable);
     winNum = 0;
     gameStart();
 }
 
 // Reboot the game for loser
 function gameRebootWin() {
-    console.log(currentGame);
-    console.log(wordTable);
     gameStart();
 }
 
@@ -92,21 +92,32 @@ function guessLetter(event) {
 
         // restart the game if wins
         if (isEmpty(wordTable)) {
-            winNum += 1;
-            gameRebootWin();
+            document.getElementById("answer").innerHTML = currentGame.word;         // show the answer
+
+            // show image
+            document.getElementById("answerImage").innerHTML = "<img src=" + '\"' + imageLoc + currentGame.image + '\"' + 
+                                                               " width=" + '\"' + "50%" + '\"' + 
+                                                               " height=" + '\"' + "50%" + '\"' + 
+                                                               " alt=" + '\"' + "got" + '\"' + ">";
+
+            winNum += 1;                                                            // winner : win + 1
+            gameRebootWin();                                                        // reboot the game for winner
         }
     } else { // decrease remaining guess number by 1. If the remaining guess number is zero, reboot the whole game
         guessNum -= 1;
         document.getElementById("guessNum").innerHTML = guessNum + " of guess remains"; // number of guess remains
         wrongLetterIdx = inputLetter.charCodeAt(0) - 'A'.charCodeAt(0);
         if (0 === guessNum) {
+            // numnber of guess runs out! Reboot for loser!
             gameRebootLose();
         } else if (0 == wrongLetterStr.length) {
+            // first wrong letter
             wrongLetterStr += inputLetter;
-            wrongLetterMark[wrongLetterIdx] = 1;
-        } else if (0 == wrongLetterMark[wrongLetterIdx]) {
+            wrongTable[inputLetter] = 1;
+        } else if (!(inputLetter in wrongTable)) {
+            // following wrong letter occurs the first time
             wrongLetterStr = wrongLetterStr + ", " + inputLetter;
-            wrongLetterMark[wrongLetterIdx] = 1;
+            wrongTable[inputLetter] = 1;
         } else {
             // do nothing
         }
