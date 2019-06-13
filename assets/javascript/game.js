@@ -51,17 +51,18 @@ function gameStart() {
     }
 }
 
-// Reboot the game for winner
+// Reboot the game for loser
 function gameRebootLose() {
     winNum = 0;
     gameStart();
 }
 
-// Reboot the game for loser
+// Reboot the game for winner
 function gameRebootWin() {
     gameStart();
 }
 
+// check if an object is empty
 function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
@@ -105,7 +106,6 @@ function guessLetter(event) {
     } else { // decrease remaining guess number by 1. If the remaining guess number is zero, reboot the whole game
         guessNum -= 1;
         document.getElementById("guessNum").innerHTML = guessNum + " of guess remains"; // number of guess remains
-        wrongLetterIdx = inputLetter.charCodeAt(0) - 'A'.charCodeAt(0);
         if (0 === guessNum) {
             // numnber of guess runs out! Reboot for loser!
             gameRebootLose();
