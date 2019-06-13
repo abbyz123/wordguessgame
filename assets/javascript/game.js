@@ -23,7 +23,6 @@ function gameStart() {
     // re-initialize global variables for reboot
     guessNum = 12;
     wrongLetterStr = "";
-    wrongLetterMark = new Array(26).fill(0);
     currentGame = Object();
     wordTable = Object();
     wrongTable = Object();
