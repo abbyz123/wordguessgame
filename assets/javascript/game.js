@@ -2,7 +2,10 @@
 let wordGuess = ["Lannister", "Stark", "Targaryen", "Baratheon", "Cersei", "Arya", "Jon", "Tyrion", "Daenerys", "Sansa"];    // Guessing words
 let imageLoc = "assets/images/";                                                                                               // image location
 let wordImage = ["House_Lannister.svg", "House_Stark.svg", "House_Targaryen.svg", "House_Baratheon.svg", 
-                 "Cersei.jpg", "Arya.jpg", "Jon.png", "Tyrion.jpg", "Danny.jpg", "Sansa.jpg"];                                              // Image to show after a word is correctly guessed
+                 "Cersei.jpg", "Arya.jpg", "Jon.png", "Tyrion.jpg", "Danny.jpg", "Sansa.jpg"];                                           // Image to show after a word is correctly guessed
+let wordCaption = ["Hear me roar", "Winter is coming", "Fire and Blood", "Ours is the fury", 
+                   "Power is power", "A girl has no name", "You know nothing Jon Snow", "I drink and I knowthings",
+                   "Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons", "Lady of Winterfell"];
 let wordMusic = [null, null, null, null, null, null, null, null, null, null];                                              // Music to play after a word is correctly guessed
 let winNum = 0;
 let guessNum = 12;
@@ -33,6 +36,7 @@ function gameStart() {
     currentGame.word = wordGuess[wordIdx];                          // load word to object
     currentGame.image = wordImage[wordIdx];                         // load image filename to object
     currentGame.music = wordMusic[wordIdx];                         // load music link to object; 
+    currentGame.wordCaption = wordCaption[wordIdx];                 // load word image caption to object
 
     // Initialize the webpage
     document.getElementById("wins").innerHTML = "Win: " + winNum;   // Initialize number of wins
@@ -99,6 +103,8 @@ function guessLetter(event) {
                                                                " width=" + '\"' + "50%" + '\"' + 
                                                                " height=" + '\"' + "50%" + '\"' + 
                                                                " alt=" + '\"' + "got" + '\"' + ">";
+            // show image caption
+            document.getElementById("imageCaption").innerHTML = "<h5>" + currentGame.wordCaption + "</h5>";
 
             winNum += 1;                                                            // winner : win + 1
             gameRebootWin();                                                        // reboot the game for winner
